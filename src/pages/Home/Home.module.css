@@ -1,0 +1,27 @@
+.home_page_content {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home_page_title {
+    font-family: "DynaPuff", sans-serif;
+    font-size: 2em;
+    display: flex;
+    flex-direction: row;
+    gap: 0.25em;
+}
+
+.home_page_title_icon {
+    height: 3.5vh;
+    width: 3.5vh;
+}
+
+.home_page_description {
+    width: 50%;
+    margin-top: 1em;
+    word-spacing: 0.15em;
+    line-height: 1.5em;
+    font-weight: 500;
+}
