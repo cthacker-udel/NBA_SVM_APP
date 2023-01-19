@@ -3,6 +3,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 50%;
+    padding: 1em;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 1em;
+    border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .home_page_title {
@@ -19,9 +24,15 @@
 }
 
 .home_page_description {
-    width: 50%;
+    width: 75%;
     margin-top: 1em;
     word-spacing: 0.15em;
     line-height: 1.5em;
     font-weight: 500;
+}
+
+.home_page_button_bar {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1em;
 }
