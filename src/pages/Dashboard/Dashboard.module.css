@@ -1,0 +1,82 @@
+.dashboard_content {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1em;
+    padding: 3em;
+    border: 1px solid rgba(100, 150, 50, 0.5);
+}
+
+.dashboard_title {
+    font-family: "DynaPuff", sans-serif;
+    font-size: 2.5em;
+    margin-bottom: 1em;
+    align-self: center;
+}
+
+.dashboard_background {
+    background: rgba(30, 179, 92, 0.33);
+}
+
+.dashboard_statistics {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5em;
+}
+
+.dashboard_player_general_info_content {
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 1em;
+    background-color: rgba(30, 179, 92, 0.1);
+}
+
+.dashboard_player_image {
+    height: 6rem;
+    width: 6rem;
+    border: 5px double rgba(0, 0, 0, 0.5);
+    border-radius: 100%;
+    align-self: center;
+}
+
+.dashboard_player_general_info {
+    margin-top: 1em;
+    align-self: center;
+}
+
+.dashboard_player_general_info_title {
+    font-family: "DynaPuff", sans-serif;
+    align-self: center;
+    margin-bottom: 1em;
+    font-size: 1.5em;
+}
+
+.dashboard_player_stats_content {
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 1em;
+    background-color: rgba(30, 179, 92, 0.1);
+}
+
+.dashboard_player_stats_title {
+    font-family: "DynaPuff", sans-serif;
+    align-self: center;
+    margin-bottom: 1em;
+    font-size: 1.5em;
+}
+
+.dashboard_player_statistics {
+    align-self: center;
+}
+
+.dashboard_model_bar {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}

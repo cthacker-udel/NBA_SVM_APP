@@ -1,0 +1,23 @@
+export type Player = {
+    playerName: string;
+    teamAbbreviation: string;
+    age: number;
+    playerHeight: number;
+    playerWeight: number;
+    college: string;
+    country: string;
+    draftYear: number;
+    draftRound: number;
+    draftNumber: number;
+    gp: number;
+    pts: number;
+    reb: number;
+    ast: number;
+    netRating: number;
+    orebPct: number;
+    drebPct: number;
+    usgPct: number;
+    tsPct: number;
+    astPct: number;
+    season: string;
+};

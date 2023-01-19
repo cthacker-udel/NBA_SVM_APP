@@ -4,7 +4,9 @@ import React, { type ReactNode } from "react";
 import styles from "./Layout.module.css";
 
 type LayoutProperties = {
+    backgroundColor?: string;
     backgroundImage?: any;
+    backgroundStyle?: any;
     children: ReactNode;
 };
 
@@ -17,12 +19,21 @@ type LayoutProperties = {
  * @returns The layout applied to the child
  */
 export const Layout = ({
+    backgroundColor,
     backgroundImage,
+    backgroundStyle,
     children,
 }: LayoutProperties): JSX.Element => (
     <div
-        className={styles.layout_container}
-        style={{ backgroundImage: `url(${backgroundImage})` }}
+        className={`${styles.layout_container} ${backgroundStyle}`}
+        style={{
+            backgroundColor:
+                backgroundColor === undefined ? undefined : backgroundColor,
+            backgroundImage:
+                backgroundImage === undefined
+                    ? undefined
+                    : `url(${backgroundImage})`,
+        }}
     >
         {children}
     </div>

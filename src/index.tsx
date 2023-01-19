@@ -6,6 +6,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import App from "./App";
+import { CurrentPlayerContextProvider } from "./provider";
 
 const root = ReactDOM.createRoot(
     // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style -- disabled
@@ -14,6 +15,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <App />
+        <CurrentPlayerContextProvider>
+            <App />
+        </CurrentPlayerContextProvider>
     </React.StrictMode>,
 );
