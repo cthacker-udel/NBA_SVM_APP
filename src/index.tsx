@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- disabled */
+/* eslint-disable require-await -- disabled */
 /* eslint-disable jest/require-hook -- disabled */
 
 import "./index.css";
 
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { SWRConfig } from "swr";
 
 import App from "./App";
 import { CurrentPlayerContextProvider } from "./provider";
@@ -15,8 +18,18 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <CurrentPlayerContextProvider>
-            <App />
-        </CurrentPlayerContextProvider>
+        <SWRConfig
+            value={{
+                fetcher: async (resource, init): Promise<Response> =>
+                    fetch(`http://localhost:5000${resource}`, ...init),
+                provider: (): Map<any, any> => new Map(),
+                refreshInterval: 1250,
+                revalidateOnMount: true,
+            }}
+        >
+            <CurrentPlayerContextProvider>
+                <App />
+            </CurrentPlayerContextProvider>
+        </SWRConfig>
     </React.StrictMode>,
 );
