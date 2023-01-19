@@ -1,3 +1,6 @@
+/* eslint-disable unicorn/no-await-expression-member -- disabled */
+/* eslint-disable no-return-await -- disabled */
+/* eslint-disable @typescript-eslint/return-await -- disabled */
 /* eslint-disable @typescript-eslint/no-explicit-any -- disabled */
 /* eslint-disable require-await -- disabled */
 /* eslint-disable jest/require-hook -- disabled */
@@ -21,7 +24,11 @@ root.render(
         <SWRConfig
             value={{
                 fetcher: async (resource, init): Promise<Response> =>
-                    fetch(`http://localhost:5000${resource}`, ...init),
+                    await (
+                        await fetch(`http://localhost:5000${resource}`, {
+                            ...init,
+                        })
+                    ).json(),
                 provider: (): Map<any, any> => new Map(),
                 refreshInterval: 1250,
                 revalidateOnMount: true,

@@ -1,0 +1,34 @@
+.mainpage_body {
+  width: 100vw;
+  height: 100vh;
+  font-family: "Lato", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.mainpage_title {
+  font-weight: 900;
+  font-size: 1.5em;
+  text-align: center;
+  padding: 1em;
+  width: fit-content;
+  align-self: center;
+  border: 1px solid black;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainpage_title_subtitle {
+  font-size: 0.85em;
+  font-weight: 500;
+  margin-top: 1em;
+}
+
+.mainpage_title_footer {
+  font-size: 0.5em;
+  color: rgba(0, 0, 0, 0.25);
+  text-align: right;
+  margin-top: 1em;
+}
