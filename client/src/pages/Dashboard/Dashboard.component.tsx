@@ -1,8 +1,11 @@
+/* eslint-disable require-await -- disabled for now */
+/* eslint-disable @typescript-eslint/require-await -- disabled for now */
 /* eslint-disable node/no-unpublished-import -- disabled, is published */
 /* eslint-disable sonarjs/no-all-duplicated-branches -- disabled */
 import React from "react";
 import { Button, Image } from "react-bootstrap";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
+import type { Option } from "react-bootstrap-typeahead/types/types";
 import emptyPlayerProfilePicture from "src/assets/images/noplayerheadshot.png";
 import { Layout } from "src/common";
 import { useCurrentPlayerContext } from "src/hooks";
@@ -17,13 +20,29 @@ import styles from "./Dashboard.module.css";
  */
 export const Dashboard = (): JSX.Element => {
     const { player } = useCurrentPlayerContext();
-    const { data: playerNames } = useSwr("/playernames", {
+    const { data: playerNames, isLoading } = useSwr<string[]>("/playernames", {
         refreshInterval: 0,
     });
+    // Const { data: currentPlayer, isLoading } = useSwr<
 
     const handlePlayerSelection = React.useCallback(
-        async (selectedPlayerName: string) => {},
+        async (selectedOption: Option[]) => {
+            const [selectedPlayerName] = selectedOption as string[];
+        },
         [],
+    );
+
+    const handlePlayerSearch = React.useCallback(
+        (query: string): string[] => {
+            if (playerNames === undefined) {
+                return [];
+            }
+            return playerNames.filter(
+                (eachName) =>
+                    eachName.startsWith(query) || eachName.includes(query),
+            );
+        },
+        [playerNames],
     );
 
     return (
@@ -34,7 +53,9 @@ export const Dashboard = (): JSX.Element => {
                 </div>
                 <AsyncTypeahead
                     id="player_name_typeahead"
+                    isLoading={isLoading}
                     onChange={handlePlayerSelection}
+                    onSearch={handlePlayerSearch}
                     options={([...new Set(playerNames)] as string[]) ?? []}
                 />
                 <div className={styles.dashboard_statistics}>
