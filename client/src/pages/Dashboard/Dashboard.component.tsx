@@ -6,6 +6,7 @@ import React from "react";
 import { Button, Image } from "react-bootstrap";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import type { Option } from "react-bootstrap-typeahead/types/types";
+import type { Player } from "src/@types";
 import emptyPlayerProfilePicture from "src/assets/images/noplayerheadshot.png";
 import { Layout } from "src/common";
 import { useCurrentPlayerContext } from "src/hooks";
@@ -23,11 +24,25 @@ export const Dashboard = (): JSX.Element => {
     const { data: playerNames, isLoading } = useSwr<string[]>("/playernames", {
         refreshInterval: 0,
     });
-    // Const { data: currentPlayer, isLoading } = useSwr<
+    const [currentSelectedPlayer, setCurrentSelectedPlayer] =
+        React.useState<string>("");
+
+    const { data: currentPlayer } = useSwr<Player>(
+        `/getplayer${
+            currentSelectedPlayer === ""
+                ? ""
+                : `?player_name='${currentSelectedPlayer}'`
+        }`,
+        {
+            refreshInterval: 0,
+        },
+    );
 
     const handlePlayerSelection = React.useCallback(
         async (selectedOption: Option[]) => {
-            const [selectedPlayerName] = selectedOption as string[];
+            if (selectedOption.length === 1) {
+                setCurrentSelectedPlayer(selectedOption[0] as string);
+            }
         },
         [],
     );
@@ -44,6 +59,8 @@ export const Dashboard = (): JSX.Element => {
         },
         [playerNames],
     );
+
+    console.log(currentPlayer);
 
     return (
         <Layout backgroundStyle={styles.dashboard_background}>
