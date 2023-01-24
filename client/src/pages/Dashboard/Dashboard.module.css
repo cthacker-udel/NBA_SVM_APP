@@ -36,8 +36,8 @@
 }
 
 .dashboard_player_image {
-    height: 6rem;
-    width: 6rem;
+    height: 15vh;
+    width: 15vh;
     border: 5px double rgba(0, 0, 0, 0.5);
     border-radius: 100%;
     align-self: center;

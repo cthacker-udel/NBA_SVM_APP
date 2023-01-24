@@ -10,7 +10,6 @@ import type { Option } from "react-bootstrap-typeahead/types/types";
 import type { Player } from "src/@types";
 import emptyPlayerProfilePicture from "src/assets/images/noplayerheadshot.png";
 import { Layout } from "src/common";
-import { useCurrentPlayerContext } from "src/hooks";
 import useSwr from "swr";
 
 import styles from "./Dashboard.module.css";
