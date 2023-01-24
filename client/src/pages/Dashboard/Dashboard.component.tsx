@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent -- disabled */
 /* eslint-disable require-await -- disabled for now */
 /* eslint-disable @typescript-eslint/require-await -- disabled for now */
 /* eslint-disable node/no-unpublished-import -- disabled, is published */
@@ -20,18 +21,18 @@ import styles from "./Dashboard.module.css";
  * @returns Dashboard component
  */
 export const Dashboard = (): JSX.Element => {
-    const { player } = useCurrentPlayerContext();
+    const [currentSelectedPlayer, setCurrentSelectedPlayer] =
+        React.useState<string>("");
+    const [imgSource, setImgSource] = React.useState<string>("");
     const { data: playerNames, isLoading } = useSwr<string[]>("/playernames", {
         refreshInterval: 0,
     });
-    const [currentSelectedPlayer, setCurrentSelectedPlayer] =
-        React.useState<string>("");
 
     const { data: currentPlayer } = useSwr<Player>(
         `/getplayer${
             currentSelectedPlayer === ""
                 ? ""
-                : `?player_name='${currentSelectedPlayer}'`
+                : `?player_name=${currentSelectedPlayer}`
         }`,
         {
             refreshInterval: 0,
@@ -60,7 +61,15 @@ export const Dashboard = (): JSX.Element => {
         [playerNames],
     );
 
-    console.log(currentPlayer);
+    React.useEffect(() => {
+        if (currentPlayer !== undefined) {
+            if (currentPlayer.headshot_link === undefined) {
+                setImgSource(emptyPlayerProfilePicture);
+            } else {
+                setImgSource(currentPlayer.headshot_link);
+            }
+        }
+    }, [currentPlayer]);
 
     return (
         <Layout backgroundStyle={styles.dashboard_background}>
@@ -88,14 +97,13 @@ export const Dashboard = (): JSX.Element => {
                         </div>
                         <Image
                             className={styles.dashboard_player_image}
-                            src={
-                                player === undefined
-                                    ? emptyPlayerProfilePicture
-                                    : emptyPlayerProfilePicture
-                            }
+                            onError={(): void => {
+                                setImgSource(emptyPlayerProfilePicture);
+                            }}
+                            src={imgSource}
                         />
                         <div className={styles.dashboard_player_general_info}>
-                            {player === undefined
+                            {currentPlayer === undefined
                                 ? "No information available, please select a player."
                                 : "No information available, please select a player."}
                         </div>
@@ -105,7 +113,7 @@ export const Dashboard = (): JSX.Element => {
                             {"Player Statistics"}
                         </div>
                         <div className={styles.dashboard_player_statistics}>
-                            {player === undefined
+                            {currentPlayer === undefined
                                 ? "Statistics go here"
                                 : "Statistics go here"}
                         </div>

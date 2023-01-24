@@ -12,6 +12,19 @@ def construct_dataframe():
     player_info_df = pd.read_csv("./data/NBA_PLAYER_IDS.csv", encoding="ISO-8859-1")
     player_info_df["player_name"] = player_info_df["NBAName"]
     dataframe = pd.merge(players_df, player_info_df, on="player_name")
+    dataframe = dataframe.drop(
+        columns=[
+            "ESPNLink",
+            "ESPNName",
+            "ESPNID",
+            "ESPNBirthDate",
+            "SpotracID",
+            "SpotracName",
+            "SpotracLink",
+            "ESPNBirthDate",
+        ]
+    )
+    dataframe.fillna(0, inplace=True)
     return dataframe
 
 
@@ -34,7 +47,7 @@ def create_app(test_config=None):
         pass
 
     dataframe = construct_dataframe()
-    # player_df.to_pickle("./player_dataframe.pickle")
+    print(dataframe.head())
 
     @app.route("/")
     def main_page():
@@ -54,8 +67,10 @@ def create_app(test_config=None):
 
             return Response("Player not found", status=204)
         found_player_info = dataframe[
-            dataframe["player_name"].str.startswith(requested_player.lower())
+            dataframe["player_name"].str.startswith(requested_player)
         ]
+
+        print("passed {}".format(requested_player))
 
         if found_player_info is None:
 
@@ -65,11 +80,11 @@ def create_app(test_config=None):
 
         headshot_link = ""
 
-        if found_player_pfp is not None:
+        if found_player_pfp is not None and len(found_player_pfp) >= 1:
 
             headshot_link = (
-                "https://cdn.nba.com/headshots/nba/latest/260x190/{}.png".format(
-                    found_player_pfp["NBAID"]
+                "https://cdn.nba.com/headshots/nba/latest/1040x760/{}.png".format(
+                    int(found_player_pfp["NBAID"].tolist()[0])
                 )
             )
 
